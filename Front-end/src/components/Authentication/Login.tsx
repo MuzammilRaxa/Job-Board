@@ -25,6 +25,7 @@ const Page = () => {
     if (!loginForm.email || !loginForm.password) {
       return
     }
+    console.log('loginForm-->',loginForm)
     try {
       const res: any = await ky
         .post(Apis.auth.login, {
