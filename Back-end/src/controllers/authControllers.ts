@@ -33,9 +33,11 @@ export const login = async (req: Request, res: Response): Promise<void> => {
   try {
     const { email, password } = req.body;
     // Check if user exists
+    console.log('amail->',email)
     let existingUser: IUser | null = await User.findOne({ email });
     if (!existingUser) {
       res.status(404).json({ message: "User not found" });
+      console.log('existinguser->',existingUser)
       return;
     }
     existingUser = (existingUser as any)._doc

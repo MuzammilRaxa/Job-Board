@@ -15,3 +15,21 @@ class UserDTO {
 }
 
 export default UserDTO
+
+
+// export interface JobPostDTO {
+//     contactName: string;
+//     contactEmail: string;
+//     contactPhone: string;
+//     companyName: string;
+//     industry: string;
+//     location: string;
+//     jobTitle: string;
+//     jobDescription: string;
+//     employmentType: string;
+//     skillsQualifications: string;
+//     compensationBenefits: string;
+//     applicationProcess: string;
+//     applicationDeadline: Date;
+//   }
+  

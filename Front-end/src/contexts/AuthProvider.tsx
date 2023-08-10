@@ -48,11 +48,10 @@ function AuthProvider({ children }: { children: React.ReactNode }) {
         const parsedUser = JSON.parse(storedUser) as any
         setUser(parsedUser)
         setAuthStatus(AuthStatuses.authenticated)
-        console.log('parsed-->', parsedUser)
       } catch (err) {
         console.log('Error', err)
       }
-    }
+    } 
   }, [])
 
   async function logout() {
@@ -64,6 +63,7 @@ function AuthProvider({ children }: { children: React.ReactNode }) {
         .json()
       userSetter(null)
       setAuthStatus(AuthStatuses.unauthenticated)
+      localStorage.clear()
     } catch (error) {}
   }
   return (

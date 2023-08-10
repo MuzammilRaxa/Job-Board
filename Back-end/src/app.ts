@@ -4,7 +4,8 @@ import connectDB from './config/db';
 import authRoutes from './routes/authRoutes';
 import userRoutes from './routes/userRoutes';
 import jobRoutes from './routes/jobRoutes';
-import cors from 'cors';
+import cors, { CorsOptions } from 'cors';
+import Settings from './shared/utils/settings';
 
 
 // Load environment variables
@@ -18,10 +19,27 @@ const app = express();
 
 //CORS middleware
 app.use(cors({
-  origin: 'http://localhost:3000',
+  origin: 'http://localhost:3001',
   credentials: true
 }));
+// app.use(cors())
 
+
+// app.use(
+//   cors(function (req, callback) {
+//     let corsOptions: CorsOptions
+//     if (
+//       Settings.ALLOWED_ORIGINS.indexOf(req.header('Origin') as string) !==
+//         -1 ||
+//       Settings.ALLOWED_ORIGINS === '*'
+//     ) {
+//       corsOptions = { origin: true, credentials: true }
+//     } else {
+//       corsOptions = { origin: false }
+//     }
+//     callback(null, corsOptions)
+//   })
+// )
 
 // Middleware
 app.use(express.json());
@@ -31,7 +49,7 @@ app.use(express.json());
 app.use('/api/auth', authRoutes);
 app.use('/api/users', userRoutes);
 // app.use('/api/jobs', jobRoutes);
-app.use('/jobs', jobRoutes);
+app.use('/api/jobs', jobRoutes);
 
 app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
   console.error(err.stack);

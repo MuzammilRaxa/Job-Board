@@ -1,4 +1,5 @@
 'use client'
+import { JobCardProps } from '@/shared/constants/types'
 import { useFormik } from 'formik'
 import { useState } from 'react'
 import * as Yup from 'yup'
@@ -20,10 +21,10 @@ interface JobFormProps {
     applicationProcess: string
     applicationDeadline: string
   }
-  onSubmit: (values: any) => void
+  onSubmitCreate: (values: any) => void
 }
 
-const JobForm: React.FC<JobFormProps> = ({ mode, initialValues, onSubmit }) => {
+const JobForm: React.FC<JobFormProps> = ({ mode, initialValues, onSubmitCreate }) => {
   const [isFormSubmitted, setIsFormSubmitted] = useState(false)
   // const [formData, setFormData] = useState()
   const validationSchema = Yup.object().shape({
@@ -47,18 +48,16 @@ const JobForm: React.FC<JobFormProps> = ({ mode, initialValues, onSubmit }) => {
     ),
   })
 
+  const handleSubmitFun = (values: any) => {
+    onSubmitCreate(values)
+    setIsFormSubmitted(true)
+    console.log('JobValue-->',values)
+  }
   const formik = useFormik({
     initialValues,
-    validationSchema,
-    onSubmit: (values) => {
-      // Submit the form data to the backend or perform desired actions
-      // setFormData(values)
-      onSubmit(values)
-      setIsFormSubmitted(true)
-      console.log('Ye Hay Valueess-->', values)
-    },
+    // validationSchema,
+    onSubmit: handleSubmitFun,
   })
-  console.log(isFormSubmitted)
   return (
     <div className="mx-auto w-full max-w-xl rounded-xl border-2 border-amber-400 p-10 md:min-w-max">
       <h1 className="mb-4 text-2xl font-bold">Post a Job</h1>

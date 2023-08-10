@@ -8,9 +8,11 @@ import { useRouter } from 'next/navigation'
 import { useState } from 'react'
 import { Toaster } from 'react-hot-toast'
 import PasswordInput from './PasswordHandler'
+import { useAuthContext } from '@/contexts/AuthProvider'
 
 const Page = () => {
   const router = useRouter()
+  const { setUser } = useAuthContext()
   const [loginForm, setLoginForm] = useState({
     email: '',
     password: '',
@@ -23,6 +25,7 @@ const Page = () => {
     if (!loginForm.email || !loginForm.password) {
       return
     }
+    console.log('loginForm-->',loginForm)
     try {
       const res: any = await ky
         .post(Apis.auth.login, {
@@ -30,9 +33,9 @@ const Page = () => {
           json: loginForm,
         })
         .json()
-
-      const user =
+        const user =
         typeof res.user === 'string' ? res.user : JSON.stringify(res.user)
+        setUser(user)
       localStorage.setItem('user', user)
       router.push('/')
       // Show success message

@@ -5,7 +5,8 @@ import Link from 'next/link'
 
 const Navbar = () => {
   const { user, authStatus, logout } = useAuthContext()
-  
+  console.log('user->',user)
+  console.log('authStatususer->',authStatus)
   return (
     <div className="flex h-20 justify-between bg-[#292D51] px-10">
       <div className="flex flex-1 items-center justify-start">
